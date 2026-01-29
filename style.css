@@ -1,0 +1,145 @@
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+    margin: 0;
+    padding: 30px 15px;
+    text-align: center;
+}
+
+/* MAIN CONTAINER */
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* TITLE */
+h1 {
+    color: #1a237e;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* QUESTION */
+.question {
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* OPTIONS */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.option {
+    background: #f5f7fa;
+    padding: 14px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    font-size: 16px;
+}
+
+.option:hover {
+    background: #e3f2fd;
+    transform: translateX(4px);
+}
+
+/* SELECTED */
+.option.selected {
+    background: #2196F3;
+    color: white;
+    border-color: #1976D2;
+}
+
+/* CORRECT & WRONG */
+.option.correct {
+    background: #4CAF50;
+    color: white;
+    border-color: #388E3C;
+}
+
+.option.incorrect {
+    background: #ec1506;
+    color: white;
+    border-color: #d32f2f;
+}
+
+/* FEEDBACK */
+#feedback {
+    margin-top: 18px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* BUTTON AREA */
+.buttons {
+    margin-top: 25px;
+}
+
+/* BUTTONS */
+button {
+    padding: 12px 26px;
+    margin: 6px;
+    background: linear-gradient(135deg, #43a047, #2e7d32);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:disabled {
+    background: #bdbdbd;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* SCORE */
+.score {
+    font-size: 18px;
+    margin-top: 18px;
+    font-weight: 500;
+    color: #555;
+}
+
+/* RESULT BOX */
+.result {
+    display: none;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    background: #f1f8e9;
+    font-size: 18px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

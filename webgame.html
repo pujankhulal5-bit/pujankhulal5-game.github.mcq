@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Web Game</title>   
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+    <h1>MCQ Web Game</h1>
+    <h6> Game developed by Pujan</h6>
+
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div id="feedback"></div>
+
+    <div class="buttons">
+        <button id="next" disabled>Next</button>
+        <button id="submit" disabled>Submit Quiz</button>
+    </div>
+
+    <div class="score" id="score">Score: 0</div>
+
+    <div class="result" id="result">
+        <h2>Quiz Complete 🎉</h2>
+        <p id="final-score"></p>
+        <button id="restart">Restart Quiz</button>
+    </div>
+</div>
+
+    <script>
+        // Questions array - stored as array of objects
+        const questions = [
+            // HTML (1-30)
+            {
+                question: "1. Which of the following is an example of an \"Empty Tag\" (Void Tag) in HTML?",
+                options: ["a) <p>", "b) <html>", "c) <br>", "d) <div>"],
+                answer: "c"
+            },
+            {
+                question: "2. Which tag is used to embed an image into a webpage?",
+                options: ["a) <picture>", "b) <img>", "c) <src>", "d) <media>"],
+                answer: "b"
+            },
+            {
+                question: "3. What is the purpose of the alt attribute in the <img> tag?",
+                options: ["a) To provide a link", "b) To display text if image fails to load", "c) To change alignment", "d) To animate"],
+                answer: "b"
+            },
+            {
+                question: "4. Which of these is a \"Paired Tag\"?",
+                options: ["a) <hr>", "b) <img>", "c) <body>", "d) <input>"],
+                answer: "c"
+            },
+            {
+                question: "5. To play a video file in HTML5, which tag is used?",
+                options: ["a) <media>", "b) <movie>", "c) <video>", "d) <play>"],
+                answer: "c"
+            },
+            {
+                question: "6. Which attribute is used to specify the URL of a video in the <video> tag?",
+                options: ["a) href", "b) src", "c) link", "d) url"],
+                answer: "b"
+            },
+            {
+                question: "7. How can you make an audio file start playing automatically when the page loads?",
+                options: ["a) autoplay=\"true\"", "b) start=\"auto\"", "c) autoplay", "d) control=\"auto\""],
+                answer: "c"
+            },
+            {
+                question: "8. Which tag is used to embed a YouTube video?",
+                options: ["a) <youtube>", "b) <video>", "c) <iframe>", "d) <embed>"],
+                answer: "c"
+            },
+            {
+                question: "9. Which of the following is a \"Presentation Tag\" (style-focused)?",
+                options: ["a) <b>", "b) <section>", "c) <article>", "d) <em>"],
+                answer: "a"
+            },
+            {
+                question: "10. What is a \"Singular Tag\" also known as?",
+                options: ["a) Container Tag", "b) Closing Tag", "c) Empty Tag", "d) Metadata Tag"],
+                answer: "c"
+            },
+            {
+                question: "11. Which tag is used to provide multiple media sources for a video or audio element?",
+                options: ["a) <track>", "b) <source>", "c) <link>", "d) <media>"],
+                answer: "b"
+            },
+            {
+                question: "12. The <hr> tag is used for:",
+                options: ["a) Inserting a line break", "b) Highlighting text", "c) Creating a horizontal rule", "d) Creating a header"],
+                answer: "c"
+            },
+            {
+                question: "13. Which attribute allows a video player to play repeatedly?",
+                options: ["a) restart", "b) repeat", "c) loop", "d) again"],
+                answer: "c"
+            },
+            {
+                question: "14. What does the poster attribute do in a <video> tag?",
+                options: ["a) Shows image before play", "b) Adds a title", "c) Downloads video", "d) Creates a border"],
+                answer: "a"
+            },
+            {
+                question: "15. Which of these is NOT a valid audio format supported by the HTML <audio> tag?",
+                options: ["a) MP3", "b) Ogg", "c) Wav", "d) PDF"],
+                answer: "d"
+            },
+            {
+                question: "16. The type attribute in the <source> tag for audio usually looks like:",
+                options: ["a) type=\"audio/mp3\"", "b) type=\"music/mpeg\"", "c) type=\"audio/mpeg\"", "d) type=\"sound/mp3\""],
+                answer: "c"
+            },
+            {
+                question: "17. Which tag is used to define a container for an external application?",
+                options: ["a) <object>", "b) <container>", "c) <app>", "d) <box>"],
+                answer: "a"
+            },
+            {
+                question: "18. A \"Container Tag\" requires:",
+                options: ["a) Opening tag only", "b) Closing tag only", "c) Opening and Closing tags", "d) No tags"],
+                answer: "c"
+            },
+            {
+                question: "19. Which tag is used to display text in a strikethrough format?",
+                options: ["a) <u>", "b) <s>", "c) <i>", "d) <strikeout>"],
+                answer: "b"
+            },
+            {
+                question: "20. In a YouTube URL used in an <iframe>, which part indicates it is for embedding?",
+                options: ["a) /watch?v=", "b) /embed/", "c) /video/", "d) /play/"],
+                answer: "b"
+            },
+            {
+                question: "21. Which attribute is used to mute an audio or video file by default?",
+                options: ["a) silent", "b) quiet", "c) muted", "d) vol=\"0\""],
+                answer: "c"
+            },
+            {
+                question: "22. Which of these is a block-level presentation tag?",
+                options: ["a) <center>", "b) <font>", "c) <b>", "d) <i>"],
+                answer: "a"
+            },
+            {
+                question: "23. The width and height attributes of an <img> tag are measured in:",
+                options: ["a) Centimeters", "b) Percentages only", "c) Pixels (default)", "d) Inches"],
+                answer: "c"
+            },
+            {
+                question: "24. Which tag is used to add captions or subtitles to a video?",
+                options: ["a) <caption>", "b) <subtitle>", "c) <track>", "d) <text>"],
+                answer: "c"
+            },
+            {
+                question: "25. Which of the following is a \"Semantic Tag\"?",
+                options: ["a) <u>", "b) <header>", "c) <i>", "d) <big>"],
+                answer: "b"
+            },
+            {
+                question: "26. Which tag is used to draw graphics via JavaScript?",
+                options: ["a) <canvas>", "b) <draw>", "c) <paint>", "d) <graphics>"],
+                answer: "a"
+            },
+            {
+                question: "27. What is the correct HTML for inserting a background image (using inline style)?",
+                options: ["a) <body bg=\"img.gif\">", "b) <back img=\"img.gif\">", "c) <body style=\"background-image:url(img.gif)\">", "d) <img src=\"bg.gif\">"],
+                answer: "c"
+            },
+            {
+                question: "28. Which attribute allows a YouTube <iframe> to go full screen?",
+                options: ["a) fullscreen", "b) allowfullscreen", "c) screen=\"max\"", "d) mode=\"full\""],
+                answer: "b"
+            },
+            {
+                question: "29. Which tag is used to define a short inline quotation?",
+                options: ["a) <quote>", "b) <block>", "c) <q>", "d) <abbr>"],
+                answer: "c"
+            },
+            {
+                question: "30. Which HTML version introduced the <audio> and <video> tags?",
+                options: ["a) HTML 4.01", "b) XHTML", "c) HTML5", "d) HTML 3.2"],
+                answer: "c"
+            },
+            // Web Protocols & Forms (31-43)
+            {
+                question: "31. Which protocol ensures secure communication over the web?",
+                options: ["a) HTTP", "b) FTP", "c) HTTPS", "d) SMTP"],
+                answer: "c"
+            },
+            {
+                question: "32. Responsive design ensures webpages:",
+                options: ["a) Load quickly", "b) Adapt to different screen sizes", "c) Use HTTPS", "d) Validate user input"],
+                answer: "b"
+            },
+            {
+                question: "33. Which tag is used to create a hyperlink?",
+                options: ["a) <link>", "b) <a>", "c) <href>", "d) <img>"],
+                answer: "b"
+            },
+            {
+                question: "34. Which element is a block-level element?",
+                options: ["a) <span>", "b) <div>", "c) <a>", "d) <strong>"],
+                answer: "b"
+            },
+            {
+                question: "35. To create a dropdown list, use:",
+                options: ["a) <input type=\"dropdown\">", "b) <list>", "c) <select>", "d) <option>"],
+                answer: "c"
+            },
+            {
+                question: "36. A multiline text input uses:",
+                options: ["a) <input type=\"text\">", "b) <textarea>", "c) <text>", "d) <line>"],
+                answer: "b"
+            },
+            {
+                question: "37. Which HTML5 attribute is used to specify that an input field must be filled out before submitting the form?",
+                options: ["a) mandatory", "b) placeholder", "c) validate", "d) required"],
+                answer: "d"
+            },
+            {
+                question: "38. The controls attribute is used with:",
+                options: ["a) <img>", "b) <audio>", "c) <a>", "d) <form>"],
+                answer: "b"
+            },
+            {
+                question: "39. What is the default method for submitting a form in HTML?",
+                options: ["a) GET", "b) POST", "c) PUT", "d) DELETE"],
+                answer: "a"
+            },
+            {
+                question: "40. What is the correct syntax to create a text input field in HTML?",
+                options: ["a) <input type=\"text\" name=\"username\">", "b) <text name=\"username\">", "c) <textbox name=\"username\">", "d) <input name=\"username\">"],
+                answer: "a"
+            },
+            {
+                question: "41. What will happen if a form is submitted without an action attribute?",
+                options: ["a) It will be processed by the current page", "b) It will not be submitted", "c) It will throw an error", "d) It will refresh the browser"],
+                answer: "a"
+            },
+            // PHP Sessions, Cookies & Files (44-65)
+            {
+                question: "44. Which function is used to start a PHP session?",
+                options: ["a) session_open();", "b) session_start();", "c) session_create();", "d) start_session();"],
+                answer: "b"
+            },
+            {
+                question: "45. Which PHP function is used to redirect users to another page?",
+                options: ["a) go_to()", "b) redirect_to()", "c) header(\"Location: page.php\");", "d) goto page.php;"],
+                answer: "c"
+            },
+            {
+                question: "46. Which HTTP method is best for submitting sensitive data?",
+                options: ["a) GET", "b) POST", "c) PUT", "d) DELETE"],
+                answer: "b"
+            },
+            {
+                question: "47. What happens if a form is submitted using the GET method?",
+                options: ["a) Data is appended to the URL", "b) Data is stored in a database", "c) Data is encrypted", "d) Form submission fails"],
+                answer: "a"
+            },
+            {
+                question: "48. What function is used to open a file in PHP?",
+                options: ["a) file_open();", "b) fopen();", "c) open_file();", "d) open();"],
+                answer: "b"
+            },
+            {
+                question: "49. What function is used to write data to a CSV file?",
+                options: ["a) csv_write();", "b) write_csv();", "c) fputcsv();", "d) putcsv();"],
+                answer: "c"
+            },
+            {
+                question: "50. Which of the following is not an advantage of CSV files?",
+                options: ["a) They are easy to read and write", "b) They support advanced formatting", "c) They are lightweight", "d) They are widely supported"],
+                answer: "b"
+            },
+            {
+                question: "51. Which function is used to destroy a session in PHP?",
+                options: ["a) session_destroy();", "b) end_session();", "c) delete_session();", "d) unset_session();"],
+                answer: "a"
+            },
+            {
+                question: "52. Which function is used to create a cookie in PHP?",
+                options: ["a) create_cookie()", "b) setcookie()", "c) make_cookie()", "d) cookie_set()"],
+                answer: "b"
+            },
+            {
+                question: "53. Where is session data stored by default in PHP?",
+                options: ["a) Client's browser", "b) Server's file system/memory", "c) Database", "d) URL parameters"],
+                answer: "b"
+            },
+            {
+                question: "54. What is the default lifetime of a session cookie?",
+                options: ["a) 1 hour", "b) 1 day", "c) Until the browser is closed", "d) 30 minutes"],
+                answer: "c"
+            },
+            {
+                question: "55. Which superglobal array stores cookie values in PHP?",
+                options: ["a) $_GET", "b) $_POST", "c) $_COOKIE", "d) $_REQUEST"],
+                answer: "c"
+            },
+            {
+                question: "56. Which function destroys all session data?",
+                options: ["a) session_remove()", "b) session_destroy()", "c) session_delete()", "d) session_unset()"],
+                answer: "b"
+            },
+            {
+                question: "57. Which parameter in setcookie() sets the cookie's expiration time?",
+                options: ["a) path", "b) domain", "c) expires", "d) secure"],
+                answer: "c"
+            },
+            {
+                question: "58. How do you access a session variable named user_id?",
+                options: ["a) $_SESSION->user_id", "b) $_SESSION['user_id']", "c) $session['user_id']", "d) session_get('user_id')"],
+                answer: "b"
+            },
+            {
+                question: "59. What is a session hijacking attack?",
+                options: ["a) Deleting session data", "b) Stealing a user's session ID", "c) Encrypting session data", "d) Corrupting cookies"],
+                answer: "b"
+            },
+            {
+                question: "60. Which directive in php.ini sets the session save path?",
+                options: ["a) session.save_handler", "b) session.save_path", "c) session.directory", "d) session.location"],
+                answer: "b"
+            },
+            {
+                question: "61. Which function unsets all session variables but keeps the session active?",
+                options: ["a) session_destroy()", "b) session_unset()", "c) session_remove()", "d) session_reset()"],
+                answer: "b"
+            },
+                        {
+                question: "62. What is the main difference between sessions and cookies?",
+                options: ["a) Sessions are stored on the client, cookies on the server.", "b) Sessions are stored on the server, cookies on the client.", "c) Sessions use encryption, cookies do not.", "d) Cookies are more secure than sessions."],
+                answer: "b"
+            },
+            {
+                question: "63. Which scenario is best suited for using sessions?",
+                options: ["a) Storing user preferences for 30 days", "b) Tracking a logged-in user's state", "c) Caching static website content", "d) Storing API keys"],
+                answer: "b"
+            },
+            {
+                question: "64. What does the secure flag in a cookie ensure?",
+                options: ["a) The cookie is encrypted", "b) The cookie is sent only over HTTPS", "c) The cookie cannot be deleted", "d) The cookie expires quickly"],
+                answer: "b"
+            },
+            {
+                question: "65. How do you make a session cookie persistent across browser restarts?",
+                options: ["a) Set session.cookie_lifetime to 0", "b) Set session.cookie_lifetime to a future timestamp", "c) Use $_COOKIE instead of $_SESSION", "d) Store the session ID in a database"],
+                answer: "b"
+            },
+            // Database (CRUD) (66-71)
+            {
+                question: "66. What does CRUD stand for in database operations?",
+                options: ["a) Create, Read, Update, Delete", "b) Compile, Run, Upload, Download", "c) Connect, Retrieve, Update, Delete", "d) Copy, Read, Upload, Deploy"],
+                answer: "a"
+            },
+            {
+                question: "67. Which PHP function is used to connect to a MySQL database?",
+                options: ["a) mysql_open()", "b) mysqli_connect()", "c) db_connect()", "d) sql_connect()"],
+                answer: "b"
+            },
+            {
+                question: "68. Which PHP function is used to execute an SQL query?",
+                options: ["a) execute_query()", "b) sql_run()", "c) mysqli_query()", "d) db_execute()"],
+                answer: "c"
+            },
+            {
+                question: "69. How do you fetch data as an associative array in PHP?",
+                options: ["a) mysqli_fetch_assoc()", "b) fetch_assoc()", "c) get_assoc()", "d) db_fetch_assoc()"],
+                answer: "a"
+            },
+            {
+                question: "70. What is the purpose of the mysqli_fetch_array() function in PHP?",
+                options: ["a) Fetches a row as an associative array", "b) Fetches a row as an associative and numeric array", "c) Fetches only a numeric array", "d) Deletes a row from a database"],
+                answer: "b"
+            },
+            {
+                question: "71. Which PHP function is used to get the number of rows in a result set returned by a SELECT query?",
+                options: ["a) count_rows()", "b) get_row_count()", "c) mysqli_num_rows()", "d) mysqli_affected_rows()"],
+                answer: "c"
+            },
+            // PHP Fundamentals (Second Section 1-40)
+            {
+                question: "72. PHP stands for:",
+                options: ["a) Preprocessor Home Page", "b) Hypertext Preprocessor", "c) Personal Hyper Processor", "d) Private Home Page"],
+                answer: "b"
+            },
+            {
+                question: "73. Which symbol is used to start a variable in PHP?",
+                options: ["a) &", "b) !", "c) $", "d) #"],
+                answer: "c"
+            },
+            {
+                question: "74. Which of the following is the correct way to end a PHP statement?",
+                options: ["a) .", "b) ;", "c) :", "d) !"],
+                answer: "b"
+            },
+            {
+                question: "75. How do you write \"Hello World\" in PHP?",
+                options: ["a) Document.Write(\"Hello World\");", "b) \"Hello World\";", "c) echo \"Hello World\";", "d) print_line(\"Hello World\");"],
+                answer: "c"
+            },
+            {
+                question: "76. Which operator is used for concatenation in PHP?",
+                options: ["a) +", "b) *", "c) .", "d) &"],
+                answer: "c"
+            },
+            {
+                question: "77. What is the correct way to create a function in PHP?",
+                options: ["a) create myFunction()", "b) function myFunction()", "c) new_function myFunction()", "d) def myFunction()"],
+                answer: "b"
+            },
+            {
+                question: "78. Which PHP function is used to get the length of a string?",
+                options: ["a) len()", "b) strlength()", "c) strlen()", "d) get_len()"],
+                answer: "c"
+            },
+            {
+                question: "79. Which of these is an \"Associative Array\" definition?",
+                options: ["a) $a = array(1,2,3);", "b) $a = array(\"r\"=>\"red\", \"b\"=>\"blue\");", "c) $a = [1,2,3];", "d) $a = \"red, blue\";"],
+                answer: "b"
+            },
+            {
+                question: "80. How do you create a single-line comment in PHP?",
+                options: ["a) //", "b) /*", "c) <comment>", "d) *"],
+                answer: "a"
+            },
+            {
+                question: "81. Which superglobal variable holds information about headers, paths, and script locations?",
+                options: ["a) $_SESSION", "b) $_SERVER", "c) $_GET", "d) $_GLOBALS"],
+                answer: "b"
+            },
+            {
+                question: "82. What is the correct way to add 1 to the variable $count?",
+                options: ["a) $count++;", "b) count++;", "c) ++count;", "d) $count =+ 1;"],
+                answer: "a"
+            },
+            {
+                question: "83. Which function returns the number of elements in an array?",
+                options: ["a) count()", "b) size()", "c) elements()", "d) length()"],
+                answer: "a"
+            },
+            {
+                question: "84. Which loop is used to execute a block of code for each element in an array?",
+                options: ["a) for", "b) while", "c) do...while", "d) foreach"],
+                answer: "d"
+            },
+            {
+                question: "85. What does the isset() function do?",
+                options: ["a) Deletes a variable", "b) Checks if a variable is declared and not null", "c) Sets a new variable", "d) Checks if a variable is empty"],
+                answer: "b"
+            },
+            {
+                question: "86. How do you define a constant in PHP?",
+                options: ["a) const()", "b) define()", "c) constant()", "d) var"],
+                answer: "b"
+            },
+            {
+                question: "87. Which PHP function is used to remove whitespace from the beginning and end of a string?",
+                options: ["a) strip()", "b) trim()", "c) cut()", "d) clean()"],
+                answer: "b"
+            },
+            {
+                question: "89. What is the default file extension for PHP files?",
+                options: ["a) .html", "b) .xml", "c) .php", "d) .ph"],
+                answer: "c"
+            },
+            {
+                question: "90. Which statement is used to include a file, but will produce a fatal error if the file is not found?",
+                options: ["a) include", "b) require", "c) attach", "d) load"],
+                answer: "b"
+            },
+            {
+                question: "91. How do you start a PHP block?",
+                options: ["a) <script>", "b) <?php", "c) &php", "d) <html>"],
+                answer: "b"
+            },
+            {
+                question: "92. What is the difference between == and === in PHP?",
+                options: ["a) No difference", "b) === checks both value and data type", "c) == is for assignment", "d) === is faster"],
+                answer: "b"
+            },
+            {
+                question: "93. Which function is used to convert a string to lowercase?",
+                options: ["a) lower()", "b) str_lower()", "c) strtolower()", "d) case_small()"],
+                answer: "c"
+            },
+            {
+                question: "94. Which superglobal is used to collect data after submitting an HTML form with method=\"get\"?",
+                options: ["a) $_POST", "b) $_REQUEST", "c) $_GET", "d) $_SERVER"],
+                answer: "c"
+            },
+            {
+                question: "95. What is the correct way to write an \"if\" statement in PHP?",
+                options: ["a) if $x > 10", "b) if ($x > 10)", "c) if x > 10 then", "d) if ($x > 10):"],
+                answer: "b"
+            },
+            {
+                question: "96. Which function sorts an array in ascending order?",
+                options: ["a) sort()", "b) asort()", "c) rsort()", "d) dsort()"],
+                answer: "a"
+            },
+            {
+                question: "97. Which PHP operator is used for \"not equal\"?",
+                options: ["a) != ", "b) <>", "c) Both a and b", "d) !== only"],
+                answer: "c"
+            },
+            {
+                question: "98. How do you get the ID of the last inserted row in a database?",
+                options: ["a) mysqli_last_id()", "b) mysqli_insert_id()", "c) get_id()", "d) last_row()"],
+                answer: "b"
+            },
+            {
+                question: "99. Which function merges two or more arrays into one?",
+                options: ["a) array_add()", "b) array_merge()", "c) combine()", "d) merge_array()"],
+                answer: "b"
+            },
+            {
+                question: "100. What does die() or exit() do in PHP?",
+                options: ["a) Restarts the server", "b) Stops the script execution", "c) Deletes the file", "d) Clears the cache"],
+                answer: "b"
+            },
+            {
+                question: "101. Which of the following is used to encrypt a password in PHP?",
+                options: ["a) password_hash()", "b) encrypt()", "c) md5_secure()", "d) protect()"],
+                answer: "a"
+            },
+            {
+                question: "102. Which function is used to check if a file exists?",
+                options: ["a) file_check()", "b) is_file()", "c) file_exists()", "d) exists()"],
+                answer: "c"
+            },
+            {
+                question: "103. What is the scope of a variable declared inside a function?",
+                options: ["a) Global", "b) Local", "c) Static", "d) Private"],
+                answer: "b"
+            },
+            {
+                question: "104. How do you access the value of \"color\" in $colors = array(\"color\" => \"red\");?",
+                options: ["a) $colors[0]", "b) $colors->color", "c) $colors['color']", "d) color($colors)"],
+                answer: "c"
+            },
+            {
+                question: "105. Which function is used to send an email in PHP?",
+                options: ["a) send_mail()", "b) mail()", "c) phpmail()", "d) contact()"],
+                answer: "b"
+            },
+            {
+                question: "106. Which operator is used for exponentiation (power)?",
+                options: ["a) ^", "b) **", "c) exp()", "d) pow"],
+                answer: "b"
+            },
+            {
+                question: "107. What is the output of echo 5 + \"5\"; in PHP?",
+                options: ["a) 10", "b) 55", "c) Error", "d) "],
+                answer: "a"
+            },
+            {
+                question: "108. Which function replaces some characters with some other characters in a string?",
+                options: ["a) str_replace()", "b) replace()", "c) str_change()", "d) substr()"],
+                answer: "a"
+            },
+            {
+                question: "109. How do you define a multi-line comment?",
+                options: ["a) // ... //", "b) /* ... */", "c) # ... #", "d) ``"],
+                answer: "b"
+            },
+            {
+                question: "110. Which superglobal contains information about uploaded files?",
+                options: ["a) $_POST", "b) $_UPLOADS", "c) $_FILES", "d) $_BLOB"],
+                answer: "c"
+            },
+            {
+                question: "111. Which function is used to redirect to a different URL?",
+                options: ["a) redirect()", "b) header()", "c) goto()", "d) location()"],
+                answer: "b"
+            },
+            {
+                question: "112. What does the explode() function do?",
+                options: ["a) Deletes a database", "b) Breaks a string into an array", "c) Combines array elements into a string", "d) Increases script speed"],
+                answer: "b"
+            }
+        ];
+
+/* =======================
+   MCQ QUIZ LOGIC
+======================= */
+
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedOption = null;
+let answered = false;
+
+/* ===== GET ELEMENTS ===== */
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const feedbackEl = document.getElementById("feedback");
+const nextBtn = document.getElementById("next");
+const submitBtn = document.getElementById("submit");
+const scoreEl = document.getElementById("score");
+const resultEl = document.getElementById("result");
+const finalScoreEl = document.getElementById("final-score");
+const restartBtn = document.getElementById("restart");
+
+/* ===== LOAD QUESTION ===== */
+function loadQuestion() {
+    const q = questions[currentQuestionIndex];
+
+    questionEl.textContent = q.question;
+    optionsEl.innerHTML = "";
+    feedbackEl.textContent = "";
+
+    selectedOption = null;
+    answered = false;
+
+    nextBtn.disabled = true;
+    submitBtn.disabled = currentQuestionIndex !== questions.length - 1;
+
+    q.options.forEach((opt, index) => {
+        const div = document.createElement("div");
+        div.className = "option";
+        div.textContent = opt;
+
+        div.addEventListener("click", () => selectOption(div, index));
+        optionsEl.appendChild(div);
+    });
+
+    scoreEl.textContent = `Score: ${score}`;
+}
+
+/* ===== SELECT OPTION ===== */
+function selectOption(el, index) {
+    if (answered) return;
+
+    document.querySelectorAll(".option").forEach(o =>
+        o.classList.remove("selected")
+    );
+
+    el.classList.add("selected");
+    selectedOption = index;
+
+    nextBtn.disabled = false;
+}
+
+/* ===== CHECK ANSWER ===== */
+function checkAnswer(isSubmit = false) {
+    if (selectedOption === null) return;
+
+    answered = true;
+    const correctIndex = questions[currentQuestionIndex].answer.charCodeAt(0) - 97;
+
+    document.querySelectorAll(".option").forEach((el, i) => {
+        if (i === correctIndex) el.classList.add("correct");
+        if (i === selectedOption && i !== correctIndex)
+            el.classList.add("incorrect");
+    });
+
+    if (selectedOption === correctIndex) {
+        score++;
+        feedbackEl.textContent = "✅ Correct!";
+    } else {
+        feedbackEl.textContent =
+            `❌ Wrong! Correct answer: ${questions[currentQuestionIndex].answer.toUpperCase()}`;
+    }
+
+    scoreEl.textContent = `Score: ${score}`;
+
+    setTimeout(() => {
+        if (isSubmit || currentQuestionIndex === questions.length - 1) {
+            showResult();
+        } else {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    }, 800);
+}
+
+/* ===== SHOW RESULT ===== */
+function showResult() {
+    questionEl.style.display = "none";
+    optionsEl.style.display = "none";
+    feedbackEl.style.display = "none";
+    nextBtn.style.display = "none";
+    submitBtn.style.display = "none";
+
+    resultEl.style.display = "block";
+
+    finalScoreEl.innerHTML = `
+        Attempted: ${currentQuestionIndex + 1} / ${questions.length}<br>
+        Correct Answers: ${score}
+    `;
+}
+
+/* ===== RESTART QUIZ ===== */
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    nextBtn.disabled = true;
+    submitBtn.disabled = false;
+    score = 0;
+    selectedOption = null;
+    answered = false;
+
+    questionEl.style.display = "block";
+    optionsEl.style.display = "flex";
+    feedbackEl.style.display = "block";
+    nextBtn.style.display = "inline-block";
+    submitBtn.style.display = "inline-block";
+    resultEl.style.display = "none";
+
+    loadQuestion();
+}
+
+/* ===== BUTTON EVENTS ===== */
+nextBtn.addEventListener("click", () => checkAnswer(false));
+submitBtn.addEventListener("click", () => checkAnswer(true));
+restartBtn.addEventListener("click", restartQuiz);
+
+/* ===== START QUIZ ===== */
+loadQuestion();
+
+    </script>
+</body>
+</html>
